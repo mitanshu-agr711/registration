@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const User_Schema=new mongoose.Schema({
-    username:{
+    name:{
         type:String,
         require:true,
         unique:true
@@ -16,11 +16,7 @@ const User_Schema=new mongoose.Schema({
         require:true,
         unique:true
     },
-    password:{
-        type:String,
-        require:true,
-        unique:true
-    },
+    
     residence:{
         type:String,
         enum:["HOSTLER",'DAYSCHOLAR'],
@@ -30,8 +26,15 @@ const User_Schema=new mongoose.Schema({
     CurrentYear:{
         type:Number,
         enum:["1","2"],
-        default:"1"
+        default:"1",
+        require:true,
+    },
+    Gender:{
+        type:String,
+        enum:["MALE","FEAMLE"],
+        required:true
     }
+
 },
 {
     timestamps:true
