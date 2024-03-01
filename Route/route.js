@@ -6,6 +6,6 @@ const UserModel = require('../models/userSchema.js');
 const {Registration} = require('../controller/appController.js');
 
 
-router.post('/Registeration',Registration);
+router.post('/user/Registeration',Registration);
 
 module.exports = router;

@@ -1,8 +1,8 @@
-import mongoose from 'mongoose';
-import validator from 'validator';
+const mongoose = require('mongoose');
+const validator = require('validator');
 
 const UserSchema = new mongoose.Schema({
-    username: {
+    name: {
         type: String,
         required: true,
         unique: true,
@@ -20,21 +20,29 @@ const UserSchema = new mongoose.Schema({
             message: 'Email is not valid',
         },
     },
+    contactNumber: {
+        type: Number,
+        required: true,
+        unique: true,
+        validate: {
+            validator: value => /^[6789]\d{9}$/.test(value),
+            message: 'Phone number is not correct',
+
+        },
+    },
+    Gender: {
+        type: String,
+        require: true,
+        unique: true,
+        enum: ['MALE', 'FEMALE'],
+    },
     StudentId: {
         type: Number,
         required: true,
         unique: true,
         validate: {
-            validator: value => /^(21|22)\d{7}$/.test(value),
+            validator: value => /^(21|22)[0-9]{5,6}$/.test(value),
             message: 'Student Id is not valid',
-        },
-    },
-    password: {
-        type: String,
-        required: true,
-        validate: {
-            validator: value => /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(value),
-            message: 'Password is not valid',
         },
     },
     residence: {
@@ -52,5 +60,5 @@ const UserSchema = new mongoose.Schema({
     timestamps: true
 });
 
-const User = mongoose.model('User', UserSchema);
-module.exports = User;
+module.exports = mongoose.model('User', UserSchema);
+

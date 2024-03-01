@@ -6,7 +6,7 @@ const Registration = async(req,res) => {
 
     try {
         
-        let resut = await UserModel.create({
+        let result = await UserModel.create({
             ...req.body,
            
         })

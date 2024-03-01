@@ -1,18 +1,34 @@
+require("dotenv").config();
+
 const express=require("express");
-const mongoose = require("mongoose");
-const bodyparser = require('body-parser');
+
+const appRoute = require('./Route/route.js')
+const bodyParser = require('body-parser');
 
 
 const app=express();
 
-mongoose.connect('mongodb://localhost:27017/conatus')
+const port = process.env.PORT;
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true })); 
 
 app.use(express.json());
 
-const PORT=8000;
+const connectDB = require('./mongoose');
 
-app.listen(PORT,()=>{
-    console.log(`server port is ${PORT}`);
+connectDB()
+
+
+
+app.use('/',appRoute);
+
+app.get('/',(req,res)=>{
+    res.send('Hello everyone, Your name');
 })
 
-//hii this is test commit hii test 
+app.listen(port,()=>{
+    console.log(`Server is runing on http://localhost:${port}`)
+    
+})
+
