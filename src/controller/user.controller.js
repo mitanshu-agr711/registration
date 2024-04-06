@@ -1,9 +1,10 @@
 const User = require('../models/userSchema');
 
 const mongoose = require('mongoose');
-const { Apierror } = require('../utils/Apierror');
+const Apierror = require('../utils/Apierror');
+
 const { trim } = require('validator');
-const { Apiresponse } = require('../utils/Apiresponse');
+const Apiresponse = require('../utils/Apiresponse');
 
 const Registration = async(req,res) => {
     try {
@@ -20,7 +21,7 @@ const Registration = async(req,res) => {
         )
         if(exitingUser)
         {
-            throw new Apierror(402,"user already register")
+            throw new Apierror(402, "user already register")
         }
         const user=await User.create(
             {
@@ -42,7 +43,7 @@ const Registration = async(req,res) => {
     } 
     catch (error) {
         console.log("solve this",error)
-        throw new Apierror(404,"something went wrong")
+        throw new Apierror(404, "something went wrong")
     }
 
 }

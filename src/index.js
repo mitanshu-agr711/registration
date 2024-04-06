@@ -1,8 +1,7 @@
 require("dotenv").config();
-const path = require('path');
-// const hbs = require('hbs');
+
 const express=require("express");
-// console.log("hello");
+// console.log("hello")
 const appRoute = require('./routes/user.routes.js');
 const bodyParser = require('body-parser');
 
@@ -16,7 +15,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(express.json());
 
-const connectDB = require('./db/connect.db');
+const connectDB = require('./db/connect.db.js');
 
 connectDB()
 
