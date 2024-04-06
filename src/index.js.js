@@ -1,23 +1,32 @@
 require("dotenv").config();
-
+const path = require('path');
+// const hbs = require('hbs');
 const express=require("express");
-
-const appRoute = require('./Route/route.js')
+// console.log("hello");
+const appRoute = require('./routes/user.routes.js');
 const bodyParser = require('body-parser');
 
 
 const app=express();
 
-const port = process.env.PORT;
+const port = process.env.PORT ||3000;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true })); 
 
 app.use(express.json());
 
-const connectDB = require('./mongoose');
+const connectDB = require('./db/connect.db');
 
 connectDB()
+
+// const views = path.join(__dirname, "./views/index.hbs");
+
+// app.set("view engine","hbs");
+// app.set("views", path.join(views, "views"));
+// app.get('/contact', (req, res) => {
+//     res.render('contact');
+// });
 
 
 
@@ -28,7 +37,6 @@ app.get('/',(req,res)=>{
 })
 
 app.listen(port,()=>{
-    console.log(`Server is runing on http://localhost:${port}`)
-    
+    console.log(`Server is runing on http://localhost:${port}`) 
 })
 
