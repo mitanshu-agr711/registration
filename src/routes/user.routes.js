@@ -8,7 +8,6 @@ try {
     const verifyCapcha = require('../utils/recapcha.js')
 
     router.post('/user/Registeration', Registration);
-    router.post('/sumbit', verifyCapcha);
 } catch (error) {
     console.log("ye rha error", error)
 }
