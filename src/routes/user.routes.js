@@ -5,7 +5,7 @@ const router = express.Router();
 // const UserModel = require('../models/userSchema.js');
 try {
     const { Registration } = require('../controller/user.controller.js');
-    const verifyCapcha = require('../utils/recapcha.js')
+    // const verifyCapcha = require('../utils/recapcha.js')
 
     router.post('/user/Registeration', Registration);
 } catch (error) {
