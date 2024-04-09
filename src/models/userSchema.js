@@ -30,13 +30,14 @@ const UserSchema = new mongoose.Schema({
 
         },
     },
-    Gender: {
+    gender: {
         type: String,
         require: true,
-        unique: true,
+        // unique: true,
         enum: ['MALE', 'FEMALE'],
+        default:'MALE'
     },
-    StudentId: {
+    studentId: {
         type: Number,
         required: true,
         unique: true,
@@ -51,7 +52,7 @@ const UserSchema = new mongoose.Schema({
         default: 'HOSTLER',
         required: true,
     },
-    CurrentYear: {
+    currentYear: {
         type: Number,
         enum: [1, 2],
         default: 1,
