@@ -4,6 +4,8 @@ const mongoose = require('mongoose');
 
 const Registration = async(req,res) => {
 
+    
+
     try {
         
         let result = await UserModel.create({
