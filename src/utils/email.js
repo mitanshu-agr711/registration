@@ -9,8 +9,8 @@ const emailsent = {
                 host: 'smtp.gmail.com',
                 port: 587,
                 auth: {
-                    user: 'av3497924@gmail.com',
-                    pass: 'rgde ckue yury gail'
+                    user: 'mitanshuagrawal5@gmail.com',
+        pass: 'bmvgvzycgbdbkerj'
                 }
             });
 
