@@ -33,8 +33,9 @@ const UserSchema = new mongoose.Schema({
     gender: {
         type: String,
         require: true,
-        unique: true,
+        // unique: true,
         enum: ['MALE', 'FEMALE'],
+        default:'MALE'
     },
     studentId: {
         type: Number,
