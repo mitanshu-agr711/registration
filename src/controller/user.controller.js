@@ -3,7 +3,7 @@ const { trim } = require('validator');
 const axios = require("axios");
 const ApiError = require("../utils/Apierror")
 const Apiresponse = require('../utils/Apiresponse');
-
+const emailsent=require("../utils/email")
 const Registration = async (req, res) => {
 
     const secretKey =process.env.SECRET_KEY;
@@ -44,14 +44,11 @@ const Registration = async (req, res) => {
             }
         )
         if (user) {
+            emailsent.sendMail(user.name);
             return res.json(
-                new Apiresponse(200, user, "user successfully register")
+                new Apiresponse(200, user, "user successfully register and check your mail")
             )
         }
-        email.sendMail(user.name);
-
-        console.log(user)
-        res.json(new Apiresponse(200, response.data,"check your mail"));
     }
     if (!response.data.success) {
         return res.status(401).json(new Apiresponse(401, null, 'Failed reCAPTCHA verification'));
