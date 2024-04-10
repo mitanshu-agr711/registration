@@ -9,19 +9,19 @@ const Registration = async (req, res) => {
     const secretKey =process.env.SECRET_KEY;
         
     // const token = req.body.token;
-    // const { name, email, contactNumber, gender, studentId, residence, currentYear,token } = req.body;
-    const { name, email, contactNumber, gender, studentId, residence, currentYear } = req.body;
+    const { name, email, contactNumber, gender, studentId, residence, currentYear,token } = req.body;
+    // const { name, email, contactNumber, gender, studentId, residence, currentYear } = req.body;
 
     // console.log(token);
-    // if (!token) {
-    // return res.status(401).json(new Apiresponse(401, null, 'Token is required for verification'));
-    // }
-    // if(token){
-    // const verifyurl = `https://www.google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${token}`;
-    // const response = await axios.post(verifyurl);
-    // if (response.data.success) {
+    if (!token) {
+    return res.status(401).json(new Apiresponse(401, null, 'Token is required for verification'));
+    }
+    if(token){
+    const verifyurl = `https://www.google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${token}`;
+    const response = await axios.post(verifyurl);
+    if (response.data.success) {
         // const { name, email, contactNumber, Gender, StudentId, residence, CurrentYear } = req.body;
-        if (Object.values({ name, email, contactNumber, gender, studentId, residence, currentYear }).some((field) =>field.toString().trim() === "")) {
+        if (Object.values({ name, email, contactNumber, gender, studentId, residence, currentYear,token }).some((field) =>field.toString().trim() === "")) {
             throw new ApiError (400, "fill the all details");
         }
         const exitingUser = await User.findOne(
@@ -53,13 +53,13 @@ const Registration = async (req, res) => {
             )
         }
     }
-//     if (!response.data.success) {
-//         return res.status(401).json(new Apiresponse(401, null, 'Failed reCAPTCHA verification'));
-//     }
-// }
+    if (!response.data.success) {
+        return res.status(401).json(new Apiresponse(401, null, 'Failed reCAPTCHA verification'));
+    }
+}
 
 
-// }
+}
      
 module.exports = {
     Registration
