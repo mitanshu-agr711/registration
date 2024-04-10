@@ -7,7 +7,7 @@ const UserSchema = new mongoose.Schema({
         required: true,
         // unique: true,
         validate: {
-            validator: value => /^[a-zA-Z0-9_]{3,20}$/.test(value),
+            validator: value => /^[a-zA-Z]{3,20}$/.test(value),
             message: 'Username is not valid',
         },
     },
@@ -19,6 +19,7 @@ const UserSchema = new mongoose.Schema({
         validate: {
             validator: value => /^[a-zA-Z0-9._-]+@akgec\.ac\.in$/.test(value),
             message: 'Email is not valid or does not belong to akgec.ac.in domain',
+
         },
     },
     contactNumber: {
@@ -43,7 +44,7 @@ const UserSchema = new mongoose.Schema({
         required: true,
         unique: true,
         validate: {
-            validator: value => /^(21|22)[0-9]{5,6}$/.test(value),
+            validator: value => /^(21|22|23)[0-9]{5,6}$/.test(value),
             message: 'Student Id is not valid',
         },
     },
