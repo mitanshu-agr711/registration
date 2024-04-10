@@ -10,6 +10,8 @@ const Registration = async (req, res) => {
         
     // const token = req.body.token;
     const { name, email, contactNumber, gender, studentId, residence, currentYear,token } = req.body;
+    // const { name, email, contactNumber, gender, studentId, residence, currentYear } = req.body;
+
     // console.log(token);
     if (!token) {
     return res.status(401).json(new Apiresponse(401, null, 'Token is required for verification'));
@@ -44,7 +46,8 @@ const Registration = async (req, res) => {
             }
         )
         if (user) {
-            emailsent.sendMail(user.name);
+            console.log(user.email)
+            emailsent.sendMail(user.email);
             return res.json(
                 new Apiresponse(200, user, "user successfully register and check your mail")
             )
