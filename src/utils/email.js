@@ -10,18 +10,18 @@ const emailsent = {
                 port: 587,
                 auth: {
                     user: 'mitanshuagrawal5@gmail.com',
-        pass: 'bmvgvzycgbdbkerj'
+                     pass: 'bmvgvzycgbdbkerj'
                 }
             });
-
-            const mail = {
-                from: 'mitanshuagrawal5@gmail.com',
-                to: email,
-                subject: 'Successfully register',
-                html: `<p>CONGRATULATION YOUR SUCCESSFULLY REGISTER</p>`,
-            };
-
-            const info = await transporter.sendMail(mail);
+            const info = await transporter.sendMail(
+                {
+                    from: 'mitanshuagrawal5@gmail.com',
+                    to: email,
+                    subject: 'Successfully register',
+                    html: `<p>CONGRATULATION YOUR SUCCESSFULLY REGISTER</p>`,
+                }
+            );
+            console.log(info);
             console.log('Verification email sent:', info.response);
         }
          catch (error) {
