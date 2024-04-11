@@ -40,11 +40,11 @@ const UserSchema = new mongoose.Schema({
         default:'MALE'
     },
     studentId: {
-        type: Number,
+        type: String,
         required: true,
         unique: true,
         validate: {
-            validator: value => /^(21|22|23)[0-9]{5,6}$/.test(value),
+            validator: value => /^(21|22|23)\d{5,6}(d|D)?$/.test(value),
             message: 'Student Id is not valid',
         },
     },

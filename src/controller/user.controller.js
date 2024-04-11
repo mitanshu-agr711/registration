@@ -3,15 +3,13 @@ const { trim } = require('validator');
 const axios = require("axios");
 const ApiError = require("../utils/Apierror")
 const Apiresponse = require('../utils/Apiresponse');
-const emailsent=require("../utils/email")
+
 const Registration = async (req, res) => {
 
     const secretKey =process.env.SECRET_KEY;
         
     // const token = req.body.token;
     const { name, email, contactNumber, gender, studentId, residence, currentYear,token } = req.body;
-    // const { name, email, contactNumber, gender, studentId, residence, currentYear } = req.body;
-
     // console.log(token);
     if (!token) {
     return res.status(401).json(new Apiresponse(401, null, 'Token is required for verification'));
@@ -46,12 +44,14 @@ const Registration = async (req, res) => {
             }
         )
         if (user) {
-            console.log(user.email)
-            emailsent.sendMail(user.email);
             return res.json(
-                new Apiresponse(200, user, "user successfully register and check your mail")
+                new Apiresponse(200, user, "user successfully register")
             )
         }
+        email.sendMail(user.name);
+
+        console.log(user)
+        res.json(new Apiresponse(200, response.data,"check your mail"));
     }
     if (!response.data.success) {
         return res.status(401).json(new Apiresponse(401, null, 'Failed reCAPTCHA verification'));
