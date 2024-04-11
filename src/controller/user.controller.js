@@ -17,7 +17,10 @@ const Registration = async (req, res) => {
     if(token){
     const verifyurl = `https://www.google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${token}`;
     const response = await axios.post(verifyurl);   
-    if (response.data.success) {
+    const score=response.data.score;
+
+    if (response.data.success && score>=0.5) 
+    {
         // const { name, email, contactNumber, Gender, StudentId, residence, CurrentYear } = req.body;
         if (Object.values({ name, email, contactNumber, gender, studentId, residence, currentYear,token }).some((field) =>field.toString().trim() === "")) {
             throw new ApiError (400, "fill the all details");
@@ -53,9 +56,10 @@ const Registration = async (req, res) => {
         console.log(user)
         res.json(new Apiresponse(200, response.data,"check your mail"));
     }
-    if (!response.data.success) {
-        return res.status(401).json(response.data);
+    else{
+        return res.status(401).json(new Apiresponse(401, null , "Invalid Recaptcha"));
     }
+    
 }
 
 
