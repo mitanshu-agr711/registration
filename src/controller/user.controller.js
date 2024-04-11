@@ -54,7 +54,7 @@ const Registration = async (req, res) => {
         res.json(new Apiresponse(200, response.data,"check your mail"));
     }
     if (!response.data.success) {
-        return res.status(401).json(new Apiresponse(401, null, console.log(response.data)));
+        return res.status(401).json(response.data);
     }
 }
 
