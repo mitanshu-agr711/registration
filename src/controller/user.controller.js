@@ -22,7 +22,7 @@ const Registration = async (req, res) => {
     if (response.data.success && score>=0.5) 
     {
         // const { name, email, contactNumber, Gender, StudentId, residence, CurrentYear } = req.body;
-        if (Object.values({ name, email, contactNumber, gender, studentId, residence, currentYear,token }).some((field) =>field.toString().trim() === "")) {
+        if (Object.values({ name, email, contactNumber, gender, studentId, residence, currentYear,token,branch }).some((field) =>field.toString().trim() === "")) {
             throw new ApiError (400, "fill the all details");
         }
         const exitingUser = await User.findOne(
@@ -57,7 +57,7 @@ const Registration = async (req, res) => {
         res.json(new Apiresponse(200, response.data,"check your mail"));
     }
     else{
-        return res.status(401).json(new Apiresponse(401, null , "Invalid Recaptcha"));
+        return res.status(403).json(new Apiresponse(403, null , "Invalid Recaptcha"));
     }
     
 }
