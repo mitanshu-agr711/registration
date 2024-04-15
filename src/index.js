@@ -4,12 +4,13 @@ const express=require("express");
 // console.log("hello")
 const appRoute = require('./routes/user.routes.js');
 const bodyParser = require('body-parser');
+const app=express();
 
 const cors = require('cors');
 
-express.use(cors());
+app.use(cors());
 
-const app=express();
+
 
 const port = process.env.PORT ||3000;
 
