@@ -18,9 +18,8 @@ const Registration = async (req, res) => {
     if(token){
     const verifyurl = `https://www.google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${token}`;
     const response = await axios.post(verifyurl);   
-    const score=response.data.score;
 
-    if (response.data.success && score>=0.5) 
+    if (response.data.success) 
     {
         // const { name, email, contactNumber, Gender, StudentId, residence, CurrentYear } = req.body;
         if (Object.values({ name, email, contactNumber, gender, studentId, residence, currentYear,token,branch }).some((field) =>field.toString().trim() === "")) {
