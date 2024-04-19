@@ -17,7 +17,7 @@ const UserSchema = new mongoose.Schema({
         required: true,
         unique: true,
         validate: {
-            validator: value => /^[a-zA-Z0-9._-]+@akgec\.ac\.in$/.test(value),
+            validator: value => /^[a-z]+[0-9.]+@akgec\.ac\.in$/.test(value),
             message: 'Email is not valid or does not belong to akgec.ac.in domain',
 
         },
