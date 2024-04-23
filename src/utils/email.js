@@ -26,7 +26,7 @@ const emailsent = {
         }
          catch (error) {
             console.error("Email error:", error);
-            throw new Apierror("404", "Email is not sent");
+            throw new Apierror("406", "Email is not sent");
         }
     }
 };

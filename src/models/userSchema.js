@@ -2,15 +2,24 @@ const mongoose = require('mongoose');
 const validator = require('validator');
 
 const UserSchema = new mongoose.Schema({
-    name: {
+    teamname: {
         type: String,
         required: true,
         // unique: true,
         validate: {
             validator: value => /^[a-zA-Z]{3,20}$/.test(value),
-            message: 'Username is not valid',
+            message: 'teamname is not valid',
         },
     },
+    names: [{
+        type: String,
+        required: true,
+        validate: {
+            validator: value => /^[a-zA-Z]{3,20}$/.test(value),
+            message: 'Name is not valid',
+        },
+    }],
+
     email: {
         type: String,
         type: String,
