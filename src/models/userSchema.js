@@ -20,7 +20,7 @@ const UserSchema = new mongoose.Schema({
         },
     }],
 
-    email: {
+    email: [{
         type: String,
         type: String,
         required: true,
@@ -30,8 +30,8 @@ const UserSchema = new mongoose.Schema({
             message: 'Email is not valid or does not belong to akgec.ac.in domain',
 
         },
-    },
-    contactNumber: {
+    }],
+    contactNumber:[ {
         type: Number,
         required: true,
         unique: true,
@@ -40,15 +40,15 @@ const UserSchema = new mongoose.Schema({
             message: 'Phone number is not correct',
 
         },
-    },
-    gender: {
+    }],
+    gender: [{
         type: String,
         required: true,
         // unique: true,
         enum: ['MALE', 'FEMALE'],
         default:'MALE'
-    },
-    studentId: {
+    }],
+    studentId:[ {
         type: String,
         required: true,
         unique: true,
@@ -56,24 +56,24 @@ const UserSchema = new mongoose.Schema({
             validator: value => /^(21|22|23)\d{5,6}(d|D)?$/.test(value),
             message: 'Student Id is not valid',
         },
-    },
-    residence: {
+    }],
+    residence:[ {
         type: String,
         enum: ['HOSTLER', 'DAYSCHOLAR'],
         default: 'HOSTLER',
         required: true,
-    },
-    currentYear: {
+    }],
+    currentYear:[ {
         type: Number,
         enum: [1, 2 , 3],
         default: 1,
         required: true,
-    },
-    branch: {
+    }],
+    branch: [{
         type: String,
         enum: ['CSE','CSE-AIML','CSE-DS','CS','IT','CSIT','CS-Hindi','ECE','ME','EN','CIVIL'],
         required: true,
-    }
+    }]
 }, {
     timestamps: true
 });
