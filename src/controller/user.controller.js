@@ -3,7 +3,8 @@ const { trim } = require('validator');
 const axios = require("axios");
 const ApiError = require("../utils/Apierror")
 const Apiresponse = require('../utils/Apiresponse');
-const emailsent=require("../utils/email")
+const emailsent=require("../utils/email");
+
 const Registration = async (req, res) => {
 
     const secretKey =process.env.SECRET_KEY;
@@ -18,8 +19,10 @@ const Registration = async (req, res) => {
     }
     if(token){
     const verifyurl = `https://www.google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${token}`;
-    const response = await axios.post(verifyurl);
-    if (response.data.success) {
+    const response = await axios.post(verifyurl);   
+
+    if (response.data.success) 
+    {
         // const { name, email, contactNumber, Gender, StudentId, residence, CurrentYear } = req.body;
         if (Object.values({ teamname,names, email, contactNumber, gender, studentId, residence, currentYear,token }).some((field) =>field.toString().trim() === "")) {
             throw new ApiError (400, "fill the all details");
@@ -42,7 +45,8 @@ const Registration = async (req, res) => {
                 gender,
                 studentId,
                 residence,
-                currentYear
+                currentYear,
+                branch
             }
         )
         if (user) {
@@ -56,6 +60,7 @@ const Registration = async (req, res) => {
     if (!response.data.success) {
         return res.status(403).json(new Apiresponse(403, null, 'Failed reCAPTCHA verification'));
     }
+    
 }
 
 

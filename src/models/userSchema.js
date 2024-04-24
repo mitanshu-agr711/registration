@@ -26,7 +26,7 @@ const UserSchema = new mongoose.Schema({
         required: true,
         unique: true,
         validate: {
-            validator: value => /^[a-zA-Z0-9._-]+@akgec\.ac\.in$/.test(value),
+            validator: value => /^[a-z]+[0-9.]+@akgec\.ac\.in$/.test(value),
             message: 'Email is not valid or does not belong to akgec.ac.in domain',
 
         },
@@ -49,11 +49,11 @@ const UserSchema = new mongoose.Schema({
         default:'MALE'
     },
     studentId: {
-        type: Number,
+        type: String,
         required: true,
         unique: true,
         validate: {
-            validator: value => /^(21|22|23)[0-9]{5,6}$/.test(value),
+            validator: value => /^(21|22|23)\d{5,6}(d|D)?$/.test(value),
             message: 'Student Id is not valid',
         },
     },
@@ -65,9 +65,15 @@ const UserSchema = new mongoose.Schema({
     },
     currentYear: {
         type: Number,
-        enum: [1, 2],
+        enum: [1, 2 , 3],
         default: 1,
+        required: true,
     },
+    branch: {
+        type: String,
+        enum: ['CSE','CSE-AIML','CSE-DS','CS','IT','CSIT','CS-Hindi','ECE','ME','EN','CIVIL'],
+        required: true,
+    }
 }, {
     timestamps: true
 });
