@@ -1,7 +1,7 @@
 const User = require('../models/userSchema');
 const { trim } = require('validator');
 const axios = require("axios");
-const ApiError = require("../utils/Apierror")
+const ApiError = require("../utils/Apierror");
 const Apiresponse = require('../utils/Apiresponse');
 const emailsent=require("../utils/email");
 

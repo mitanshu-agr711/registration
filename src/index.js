@@ -1,10 +1,19 @@
 require("dotenv").config();
 
 const express=require("express");
+const rateLimit = require('express-rate-limit');
 // console.log("hello")
+const app=express();
+const limiter = rateLimit({
+    windowMs: 3 * 60 * 1000, // 15 minutes
+    max: 10, // limit each IP to 8 requests per windowMs
+    message: 'Register krle, ye main sikha dunga'
+  });
+  
+  // Apply to all requests
+app.use(limiter);
 const appRoute = require('./routes/user.routes.js');
 const bodyParser = require('body-parser');
-const app=express();
 
 const cors = require('cors');
 

@@ -18,7 +18,7 @@ const emailsent = {
                     from: 'mitanshuagrawal5@gmail.com',
                     to: email,
                     subject: 'Successfully register',
-                    html: `<p>CONGRATULATION You SUCCESSFULLY REGISTERED</p>`,
+                    html: `<p>CONGRATULATION YOU SUCCESSFULLY REGISTERED</p>`,
                 }
             );
             console.log(info);
