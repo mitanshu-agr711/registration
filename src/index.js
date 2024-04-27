@@ -4,6 +4,7 @@ const express=require("express");
 const rateLimit = require('express-rate-limit');
 // console.log("hello")
 const app=express();
+app.set('trust proxy', true);
 const limiter = rateLimit({
     windowMs: 3 * 60 * 1000, // 15 minutes
     max: 10, // limit each IP to 8 requests per windowMs
