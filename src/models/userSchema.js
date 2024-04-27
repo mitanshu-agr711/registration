@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const validator = require('validator');
 
 const UserSchema = new mongoose.Schema({
     teamname: {
@@ -19,36 +18,30 @@ const UserSchema = new mongoose.Schema({
             message: 'Name is not valid',
         },
     }],
-
     email: [{
-        type: String,
         type: String,
         required: true,
         unique: true,
         validate: {
             validator: value => /^[a-z]+[0-9.]+@akgec\.ac\.in$/.test(value),
             message: 'Email is not valid or does not belong to akgec.ac.in domain',
-
         },
     }],
-    contactNumber:[ {
+    contactNumber: [{
         type: Number,
         required: true,
         unique: true,
         validate: {
             validator: value => /^[6789]\d{9}$/.test(value),
             message: 'Phone number is not correct',
-
         },
     }],
     gender: [{
         type: String,
         required: true,
-        // unique: true,
         enum: ['MALE', 'FEMALE'],
-        default:'MALE'
     }],
-    studentId:[ {
+    studentId: [{
         type: String,
         required: true,
         unique: true,
@@ -57,13 +50,13 @@ const UserSchema = new mongoose.Schema({
             message: 'Student Id is not valid',
         },
     }],
-    residence:[ {
+    residence: [{
         type: String,
         enum: ['HOSTLER', 'DAYSCHOLAR'],
         default: 'HOSTLER',
         required: true,
     }],
-    currentYear:[ {
+    currentYear: [{
         type: Number,
         enum: [1, 2 , 3],
         default: 1,
@@ -78,5 +71,11 @@ const UserSchema = new mongoose.Schema({
     timestamps: true
 });
 
-module.exports = mongoose.model('User', UserSchema);
+// Custom validators to limit the number of entries for 'names', 'email', 'contactNumber', 'gender', 'studentId', 'residence', and 'currentYear'
+['names', 'email', 'contactNumber', 'gender', 'studentId', 'residence', 'currentYear'].forEach(field => {
+    UserSchema.path(field).validate(function(value) {
+        return value.length === 3;
+    }, ` three ${field} are required`);
+});
 
+module.exports = mongoose.model('User', UserSchema);
