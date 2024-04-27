@@ -1,63 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Google reCAPTCHA v3 Example</title>
-    <script src="https://www.google.com/recaptcha/api.js?render=6LfGesApAAAAAG_lxaxyqrwOylgq-nIlASsk_csU"></script>
-    <style>
-        .container {
-            max-width: 400px;
-            margin: 50px auto;
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-
-        input[type="text"],
-        input[type="email"],
-        input[type="submit"] {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
-            border-radius: 3px;
-        }
-
-        input[type="submit"] {
-            background-color: #007bff;
-            color: #fff;
-            cursor: pointer;
-        }
-
-        input[type="submit"]:hover {
-            background-color: #0056b3;
-        }
-
-        .error {
-            color: red;
-            margin-bottom: 10px;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Google reCAPTCHA v2 Example</title>
+  <script src="https://www.google.com/recaptcha/api.js?onload=onLoadCallback" async defer></script>
+  <style>
+    /* Your styles here */
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Google reCAPTCHA v2 Example</h1>
-       <button class="g-recaptcha"
-       data-callback='onSubmit' 
-       data-action='submit' onclick="onClick()">Submit</button>
-    </div>
-    <script>
-console.log(recaptcha.ready())
-      function onClick(e) {
-        grecaptcha.ready(function() {
-          grecaptcha.execute('6LfGesApAAAAAG_lxaxyqrwOylgq-nIlASsk_csU', {action: 'submit'}).then(function(token) {
-              // Add your logic to submit to your backend server here.
-              console.log(token)
-          });
+  <div class="container">
+    <h1>Google reCAPTCHA v2 Example</h1>
+    <form id="captcha-form" action="submit.php" method="POST">
+      <div class="g-recaptcha" data-sitekey="YOUR_SITE_KEY"></div>
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+  <script>
+    // Replace 'YOUR_SITE_KEY' with your actual reCAPTCHA v2 site key from Google reCAPTCHA admin console
+    const siteKey = '6LdCgcApAAAAAJ54Q2amsxhIARFBn2gHxN0GuSsA'; // Placeholder, replace with your actual key
+
+    function onLoadCallback() {
+      // This function is called when reCAPTCHA is loaded (optional)
+      console.log('reCAPTCHA loaded');
+    }
+
+    document.getElementById('captcha-form').addEventListener('submit', function (event) {
+      event.preventDefault(); // Prevent form submission
+
+      grecaptcha.ready(function () {
+        grecaptcha.execute(siteKey, { action: 'submit' }).then(function (token) {
+          // Token is obtained, you can now submit your form along with this token
+          console.log('Token:', token);
+
+          // Add the token to a hidden input field to include it in the form submission
+          document.getElementById('captcha-token').value = token;
+
+          // Now submit the form
+          document.getElementById('captcha-form').submit();
         });
-      }
-        
-    </script>
+      });
+    });
+  </script>
 </body>
 </html>

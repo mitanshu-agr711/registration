@@ -38,8 +38,8 @@ const Registration = async (req, res) => {
         }
         console.log(exitingUser)
         const user = await User.create(
-            {
-                name,
+            {   teamname,
+                names,
                 email,
                 contactNumber,
                 gender,
