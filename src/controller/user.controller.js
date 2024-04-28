@@ -22,7 +22,8 @@ const Registration = async (req, res) => {
         const response = await axios.post(verifyurl);
 
         if (response.data.success) {
-            // const { name, email, contactNumber, Gender, StudentId, residence, CurrentYear } = req.body;
+           
+            
             if (Object.values({ teamname, names, email, contactNumber, gender, studentId, residence, currentYear, token }).some((field) => field.toString().trim() === "")) {
                 console.log("Field:", { teamname, names, email, contactNumber, gender, studentId, residence, currentYear });
                 throw new ApiError(400, "fill the all details");
