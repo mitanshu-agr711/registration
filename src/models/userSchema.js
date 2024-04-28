@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const validator = require('validator');
 
 const UserSchema = new mongoose.Schema({
-    teamname: [{
+    teamname: {
         type: String,
         required: true,
         unique: true,
@@ -10,7 +10,7 @@ const UserSchema = new mongoose.Schema({
             validator: value => /^[a-zA-Z]{3,20}$/.test(value),
             message: 'teamname is not valid',
         },
-    }],
+    },
     name: [{
         type: String,
         required: true,
@@ -71,8 +71,9 @@ const UserSchema = new mongoose.Schema({
     }],
     branch: [{
         type: String,
-        enum: ['CSE','CSE-AIML','CSE-DS','CS','IT','CSIT','CS-Hindi','ECE','ME','EN','CIVIL'],
         required: true,
+        enum: ['CSE','CSE-AIML','CSE-DS','CS','IT','CSIT','CS-Hindi','ECE','ME','EN','CIVIL'],
+
     }]
 }, 
 {
