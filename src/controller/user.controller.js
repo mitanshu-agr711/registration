@@ -10,7 +10,8 @@ const Registration = async (req, res) => {
     const secretKey =process.env.SECRET_KEY;
         
     // const token = req.body.token;
-    const { name, email, contactNumber, gender, studentId, residence, currentYear,token,branch} = req.body;
+    
+    const { teamname, name, email, contactNumber, gender, studentId, residence, currentYear,token,branch} = req.body;
     // console.log(token);
     if (!token) {
     return res.status(401).json(new Apiresponse(401, null, 'Token is required for verification'));
@@ -21,13 +22,20 @@ const Registration = async (req, res) => {
 
     if (response.data.success) 
     {
+        const fields = { teamname, name, email, contactNumber, gender, studentId, residence, currentYear, token, branch };
         // const { name, email, contactNumber, Gender, StudentId, residence, CurrentYear } = req.body;
-        if (Object.values({ name, email, contactNumber, gender, studentId, residence, currentYear,token,branch }).some((field) =>field.toString().trim() === "")) {
-            throw new ApiError (400, "fill the all details");
+        if (Object.values(fields).some((field) => {
+            if (field === undefined || field === null) {
+                return true; // Field is undefined or null
+            }
+            return field.toString().trim() === "";
+        })) {
+            console.log("Field:", { teamname, name, email, contactNumber, gender, studentId, residence, currentYear, token, branch });
+            throw new ApiError(400, "fill in all the details");
         }
         const exitingUser = await User.findOne(
             {
-                $or: [{ email }, { studentId }, { contactNumber }]
+                $or: [{ email }, { studentId }, { contactNumber }, {teamname}]
             }
         )
         if (exitingUser) {
@@ -37,6 +45,7 @@ const Registration = async (req, res) => {
         console.log(exitingUser)
         const user = await User.create(
             {
+                teamname,
                 name,
                 email,
                 contactNumber,
