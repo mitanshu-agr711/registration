@@ -7,7 +7,7 @@ const emailsent = require("../utils/email");
 
 const Registration = async (req, res) => {
 
-    // const secretKey = process.env.SECRET_KEY;
+    const secretKey = process.env.SECRET_KEY;
 
     // const token = req.body.token;
     const { teamname, names, email, contactNumber, gender, studentId, residence, currentYear, branch, token } = req.body;
