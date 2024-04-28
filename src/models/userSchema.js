@@ -69,12 +69,22 @@ const UserSchema = new mongoose.Schema({
         default: 1,
         required: true,
     }],
+    branch: [{
+        type: String,
+        enum: ['CSE','CSE-AIML','CSE-DS','CS','IT','CSIT','CS-Hindi','ECE','ME','EN','CIVIL'],
+        required: true,
+    }]
     
 }, 
 {
     timestamps: true
 });
 
+['names', 'email', 'contactNumber', 'gender', 'studentId', 'residence', 'currentYear', 'branch'].forEach(field => {
+    UserSchema.path(field).validate(function(value) {
+        return value.length === 3;
+    }, ` three ${field} are required`);
+});
 
 
 

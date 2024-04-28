@@ -11,7 +11,7 @@ const Registration = async (req, res) => {
         
     // const token = req.body.token;
     
-    const { teamname, name, email, contactNumber, gender, studentId, residence, currentYear,token} = req.body;
+    const { teamname, name, email, contactNumber, gender, studentId, residence, currentYear,token,branch} = req.body;
     // console.log(token);
     if (!token) {
     return res.status(401).json(new Apiresponse(401, null, 'Token is required for verification'));
@@ -22,7 +22,7 @@ const Registration = async (req, res) => {
 
     if (response.data.success) 
     {
-        const fields = { teamname, name, email, contactNumber, gender, studentId, residence, currentYear, token };
+        const fields = { teamname, name, email, contactNumber, gender, studentId, residence, currentYear, token, branch };
         // const { name, email, contactNumber, Gender, StudentId, residence, CurrentYear } = req.body;
         if (Object.values(fields).some((field) => {
             if (field === undefined || field === null) {
@@ -30,7 +30,7 @@ const Registration = async (req, res) => {
             }
             return field.toString().trim() === "";
         })) {
-            console.log("Field:", { teamname, name, email, contactNumber, gender, studentId, residence, currentYear, token,  });
+            console.log("Field:", { teamname, name, email, contactNumber, gender, studentId, residence, currentYear, token, branch });
             throw new ApiError(400, "fill in all the details");
         }
         const exitingUser = await User.findOne(
@@ -53,7 +53,7 @@ const Registration = async (req, res) => {
                 studentId,
                 residence,
                 currentYear,
-                
+                branch
             }
         )
         if (user) {
