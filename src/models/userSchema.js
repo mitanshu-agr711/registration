@@ -72,10 +72,10 @@ const UserSchema = new mongoose.Schema({
 });
 
 // Custom validators to limit the number of entries for 'names', 'email', 'contactNumber', 'gender', 'studentId', 'residence', and 'currentYear'
-['names', 'email', 'contactNumber', 'gender', 'studentId', 'residence', 'currentYear'].forEach(field => {
-    UserSchema.path(field).validate(function(value) {
-        return value.length === 3;
-    }, ` three ${field} are required`);
-});
+// ['names', 'email', 'contactNumber', 'gender', 'studentId', 'residence', 'currentYear'].forEach(field => {
+    // UserSchema.path(field).validate(function(value) {
+    //     return value.length === 3;
+    // }, ` three ${field} are required`);
+// });
 
 module.exports = mongoose.model('User', UserSchema);
