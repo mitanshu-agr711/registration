@@ -23,8 +23,9 @@ const Registration = async (req, res) => {
 
         if (response.data.success) {
            
-            
-            if (Object.values({ teamname, names, email, contactNumber, gender, studentId, residence, currentYear, token }).some((field) => field.toString().trim() === "")) {
+
+            if (Object.values({ teamname, names, email, contactNumber, gender, studentId, residence, currentYear, token }).some((field) => !field || field.toString().trim() === "")) {
+
                 console.log("Field:", { teamname, names, email, contactNumber, gender, studentId, residence, currentYear });
                 throw new ApiError(400, "fill the all details");
 
