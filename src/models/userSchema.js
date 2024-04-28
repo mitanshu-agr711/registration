@@ -69,12 +69,7 @@ const UserSchema = new mongoose.Schema({
         default: 1,
         required: true,
     }],
-    branch: [{
-        type: String,
-        required: true,
-        enum: ['CSE','CSE-AIML','CSE-DS','CS','IT','CSIT','CS-Hindi','ECE','ME','EN','CIVIL'],
-
-    }]
+    
 }, 
 {
     timestamps: true
