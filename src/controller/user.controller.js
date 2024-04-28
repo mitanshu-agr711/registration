@@ -24,12 +24,16 @@ const Registration = async (req, res) => {
         if (response.data.success) {
            
 
-            if (Object.values({ teamname, names, email, contactNumber, gender, studentId, residence, currentYear, token }).some((field) => !field || field.toString().trim() === "")) {
-
+            if (Object.values({ teamname, names, email, contactNumber, gender, studentId, residence, currentYear, token }).some((field) => {
+                if (field === undefined || field === null) {
+                    return true; // Field is undefined or null
+                }
+                return field.toString().trim() === "";
+            })) {
                 console.log("Field:", { teamname, names, email, contactNumber, gender, studentId, residence, currentYear });
-                throw new ApiError(400, "fill the all details");
-
+                throw new ApiError(400, "fill in all the details");
             }
+            
             const exitingUser = await User.findOne(
                 {
                     $or: [{ email }, { studentId }, { contactNumber }, { teamname }]
