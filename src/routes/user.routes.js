@@ -7,7 +7,7 @@ try {
     const { Registration } = require('../controller/user.controller.js');
     // const verifyCapcha = require('../utils/recapcha.js')
 
-    router.post('/user/Registeration', Registration);
+    router.post('/registeration', Registration);
 } catch (error) {
     console.log("ye rha error", error)
 }

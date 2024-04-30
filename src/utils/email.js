@@ -9,13 +9,13 @@ const emailsent = {
                 host: 'smtp.gmail.com',
                 port: 587,
                 auth: {
-                    user: 'mitanshuagrawal5@gmail.com',
-                     pass: 'bmvgvzycgbdbkerj'
+                    user:  'teamconatus@gmail.com',
+                     pass: 'zrtx gfan xgjv ywgn'
                 }
             });
             const info = await transporter.sendMail(
                 {
-                    from: 'mitanshuagrawal5@gmail.com',
+                    from: 'teamconatus@gmail.com',
                     to: email,
                     subject: 'Successfully register',
                     html: `<p>CONGRATULATION YOU SUCCESSFULLY REGISTERED</p>`,
