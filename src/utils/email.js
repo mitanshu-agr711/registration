@@ -1,4 +1,5 @@
 const nodemailer = require('nodemailer');
+const fs = require('fs').promises;
 const Apierror = require('../utils/Apierror');
 
 
@@ -11,22 +12,17 @@ const emailsent = {
                 port: 587,
                 auth: {
                     user: 'teamconatus@gmail.com',
-                    pass: 'zrtx gfan xgjv ywgn'
+                    pass: 'vocz spsv mtqo wfbx'
                 }
             });
-            const photoPath = 'photo.jpg.png'; 
-
+            
+            const htmlContent = await fs.readFile('src/content/html.html', 'utf-8');
             const info = await transporter.sendMail({
                 from: 'teamconatus@gmail.com',
                 to: email,
                 subject: 'Successfully register',
-                html: `<p>CONGRATULATION YOU SUCCESSFULLY REGISTERED</p>`,
-                attachments: [
-                    {
-                        filename: 'photo.jpg.png', // Change the filename as needed
-                        path: photoPath // Provide the path to your photo file
-                    }
-                ]
+                html: htmlContent,
+            
             });
             console.log('Verification email sent:', info.response);
         } catch (error) {

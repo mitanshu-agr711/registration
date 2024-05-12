@@ -7,7 +7,7 @@ const UserSchema = new mongoose.Schema({
         required: true,
         unique: true,
         validate: {
-            validator: value => /^[a-zA-Z]{3,20}$/.test(value),
+            validator: value => /^[a-zA-Z\s]{3,20}$/.test(value),
             message: 'Teamname is not valid',
         },
     },
@@ -68,7 +68,8 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: true,
         enum: ['CSE','CSE-AIML','CSE-DS','CS','IT','CSIT','CS-Hindi','ECE','ME','EN','CIVIL']
-    }]
+    }],
+    
 }, 
 {
     timestamps: true

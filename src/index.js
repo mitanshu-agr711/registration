@@ -33,14 +33,6 @@ const connectDB = require('./db/connect.db.js');
 
 connectDB()
 
-// const views = path.join(__dirname, "./views/index.hbs");
-
-// app.set("view engine","hbs");
-// app.set("views", path.join(views, "views"));
-// app.get('/contact', (req, res) => {
-//     res.render('contact');
-// });
-
 
 
 app.use('/',appRoute);
