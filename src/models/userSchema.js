@@ -9,93 +9,76 @@ const UserSchema = new mongoose.Schema({
         validate: {
             validator: value => /^[a-zA-Z\s]{3,20}$/.test(value),
             message: 'Teamname is not valid',
+           
         },
     },
-    name: {
-        type: [String],
+    name: [{
+        type: String,
         required: true,
-        validate: [
-            {
-                validator: value => value.length === 3,
-                message: 'Exactly three names are required',
-            },
-            {
-                validator: value => value.every(name => /^[a-zA-Z\s]{3,20}$/.test(name)),
-                message: 'Each name should be between 3 and 20 characters and contain only letters and spaces',
-            }
-        ]
-    },
-    email: {
-        type: [String],
+        validate: {
+            validator: value => /^[a-zA-Z\s]{3,20}$/.test(value),
+            message: 'Username is not valid',
+        },
+    }],
+    email: [{
+        type: String,
         required: true,
         unique: true,
-        validate: [
-            {
-                validator: value => value.length === 3,
-                message: 'Exactly three emails are required',
-            },
-            {
-                validator: value => value.every(email => /^[a-z]+[0-9.]+@akgec\.ac\.in$/.test(email)),
-                message: 'Each email should be valid and belong to akgec.ac.in domain',
-            }
-        ]
-    },
-    contactNumber: {
-        type: [Number],
+        validate: {
+            validator: value => /^[a-z]+[0-9.]+@akgec\.ac\.in$/.test(value),
+            message: 'Email is not valid or does not belong to akgec.ac.in domain',
+        },
+    }],
+    contactNumber: [{
+        type: Number,
         required: true,
         unique: true,
-        validate: [
-            {
-                validator: value => value.length === 3,
-                message: 'Exactly three contact numbers are required',
-            },
-            {
-                validator: value => value.every(number => /^[6789]\d{9}$/.test(number)),
-                message: 'Each contact number should be valid',
-            }
-        ]
-    },
-    gender: {
-        type: [String],
+        validate: {
+            validator: value => /^[6789]\d{9}$/.test(value),
+            message: 'Phone number is not correct',
+        },
+    }],
+    gender: [{
+        type: String,
         required: true,
         enum: ['MALE', 'FEMALE', 'OTHER'],
-        default: ['MALE', 'MALE', 'MALE'] // Set default values for each person
-    },
-    studentId: {
-        type: [String],
+        default: 'MALE'
+    }],
+    studentId: [{
+        type: String,
         required: true,
         unique: true,
-        validate: [
-            {
-                validator: value => value.length === 3,
-                message: 'Exactly three student IDs are required',
-            },
-            {
-                validator: value => value.every(id => /^(21|22|23)\d{5,6}(d|D)?$/.test(id)),
-                message: 'Each student ID should be valid',
-            }
-        ]
-    },
-    residence: {
-        type: [String],
+        validate: {
+            validator: value => /^(21|22|23)\d{5,6}(d|D)?$/.test(value),
+            message: 'Student Id is not valid',
+        },
+    }],
+    residence: [{
+        type: String,
         enum: ['HOSTELER', 'DAY SCHOLAR'],
-        default: ['HOSTELER', 'HOSTELER', 'HOSTELER'], // Set default values for each person
+        default: 'HOSTELER',
         required: true,
-    },
-    currentYear: {
-        type: [Number],
+    }],
+    currentYear: [{
+        type: Number,
         enum: [1, 2 , 3],
-        default: [1, 1, 1], // Set default values for each person
+        default: 1,
         required: true,
-    },
-    branch: {
-        type: [String],
+    }],
+    branch: [{
+        type: String,
         required: true,
         enum: ['CSE','CSE-AIML','CSE-DS','CS','IT','CSIT','CS-Hindi','ECE','ME','EN','CIVIL']
-    }
+    }]
 }, 
 {
     timestamps: true
+});
+
+['name', 'email', 'contactNumber', 'gender', 'studentId', 'residence', 'currentYear', 'branch'].forEach(field => {
+    UserSchema.path(field).validate(function(value) {
+        return value.length === 3;
+    }, `Three ${field} are required`);
 });
 
 module.exports = mongoose.model('User', UserSchema);
