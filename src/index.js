@@ -4,7 +4,7 @@ const express=require("express");
 const rateLimit = require('express-rate-limit');
 // console.log("hello")
 const app=express();
-app.set('trust proxy', true);
+
 
 
 const limiter = rateLimit({
