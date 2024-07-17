@@ -9,7 +9,7 @@ const Registration = async (req, res) => {
 
     const secretKey = process.env.SECRET_KEY;
 
-    const { teamname, name, email, contactNumber, gender, studentId, residence, currentYear, token, branch } = req.body;
+    const { name, email, contactNumber, gender, studentId, residence, domain ,branch, token } = req.body;
 
     if (!token) {
         return res.status(401).json(new Apiresponse(401, null, 'Token is required for verification'));
@@ -20,8 +20,8 @@ const Registration = async (req, res) => {
         const response = await axios.post(verifyurl);
 
         if (response.data.success) {
-            const fields = { teamname, name, email, contactNumber, gender, studentId, residence, currentYear, token, branch };
-
+            const fields = {name, email, contactNumber, gender, studentId, residence,domain, branch , token};
+            console.log(fields);
             if (Object.values(fields).some((field) => {
                 if (field === undefined || field === null) {
                     return true; // Field is undefined or null
@@ -32,7 +32,7 @@ const Registration = async (req, res) => {
             }
 
             const existingUser = await User.findOne({
-                $or: [{ email }, { studentId }, { contactNumber }, { teamname }]
+                $or: [{ email }, { studentId }, { contactNumber }]
             });
 
             if (existingUser) {
@@ -41,14 +41,13 @@ const Registration = async (req, res) => {
 
             try {
                 const user = await User.create({
-                    teamname,
                     name,
                     email,
                     contactNumber,
                     gender,
                     studentId,
                     residence,
-                    currentYear,
+                    domain,
                     branch
                 });
 
