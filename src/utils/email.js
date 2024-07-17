@@ -11,7 +11,7 @@ const emailsent = {
                 host: 'smtp.gmail.com',
                 port: 587,
                 auth: {
-                    user: 'teamconatus@gmail.com',
+                    user: 'aman2210099@akgec.ac.in',
                     pass: 'vocz spsv mtqo wfbx'
                 }
             });
